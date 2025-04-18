@@ -1,6 +1,12 @@
-﻿namespace AcunMedya.Cafe.ViewComponents
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace AcunMedya.Cafe.ViewComponents
 {
-    public class _AdminLayoutNavbarComponentPartial
+    public class _AdminLayoutNavbarComponentPartial : ViewComponent
     {
+        public IViewComponentResult Invoke()
+        {
+            return View();
+        }
     }
 }
