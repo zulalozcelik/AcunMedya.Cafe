@@ -19,7 +19,7 @@ namespace AcunMedya.Cafe.Controllers
         {
             //Eager Loading
             var values = _context.Products.Include(x => x.Category).ToList();
-            return View();
+            return View(values);
         }
         [HttpGet]
         public IActionResult AddProduct()

@@ -16,7 +16,7 @@ namespace AcunMedya.Cafe.Controllers
         public IActionResult Index()
         {
             var values = _context.Categories.ToList();
-            return View();
+            return View(values);
         }
         public IActionResult AddCategory()
         {

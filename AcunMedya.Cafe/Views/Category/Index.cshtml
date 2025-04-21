@@ -28,6 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @if (Model != null && Model.Any()){
                             @foreach (var item in Model)
                             {
                                 <tr>
@@ -37,8 +38,11 @@
                                     <td><a href="/Category/DeleteCategory/@item.CategoryId" class="badge badge-danger">Sil</a></td>
                                 </tr>
                             }
-
-
+                        }
+                            else
+                            {
+                                <p>Model boş veya null</p>
+                            }
                         </tbody>
                     </table>
                     <a href="/Category/AddCategory" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Yeni Kategori</a>
