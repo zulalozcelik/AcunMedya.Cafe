@@ -1,15 +1,17 @@
 ﻿@model AcunMedya.Cafe.Entities.Category
+
 @{
-    ViewData["Title"] = "AddCategory";
+    ViewData["Title"] = "UpdateCategory";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
+
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title"> Kategori Ekleme Sayfası </h3>
+        <h3 class="page-title"> Kategori Güncelleme Sayfası </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Ekleme İşlemi</a></li>
+                <li class="breadcrumb-item"><a href="#">Güncelleme İşlemi</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Kategori</li>
             </ol>
         </nav>
@@ -19,10 +21,10 @@
             <div class="card">
                 <div class="card-body">
                     <form method="post">
+                        <input type="hidden" asp-for="CategoryId" class="form-control" />
                         <label>Kategori Adı</label>
                         <input type="text" asp-for="CategoryName" class="form-control" />
                         <br />
-                        <span asp-validation-for="CategoryName" class="text-danger"></span>
                         <button class="btn btn-primary"> <i class="fa fa-save"> </i>  Kaydet </button>
                     </form>
                 </div>

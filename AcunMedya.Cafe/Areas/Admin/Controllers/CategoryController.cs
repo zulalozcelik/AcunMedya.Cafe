@@ -2,8 +2,9 @@
 using AcunMedya.Cafe.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AcunMedya.Cafe.Controllers
+namespace AcunMedya.Cafe.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly CafeContext _context;
