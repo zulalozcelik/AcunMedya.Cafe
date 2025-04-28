@@ -1,5 +1,4 @@
-﻿
-﻿using AcunMedya.Cafe.Entities;
+﻿﻿using AcunMedya.Cafe.Entities;
 using FluentValidation;
 
 namespace AcunMedya.Cafe.Validations
