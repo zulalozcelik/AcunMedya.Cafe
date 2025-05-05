@@ -13,6 +13,15 @@ builder.Services.AddFluentValidationAutoValidation().
                  AddFluentValidationClientsideAdapters().
                  AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+builder.Services.AddAuthentication("AdminScheme")
+    .AddCookie("AdminScheme", options =>
+    {
+        options.LoginPath = "/Login/Index";
+        options.LogoutPath = "/Login/Logout";
+        options.AccessDeniedPath = "/Login/AccessDenied";
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
