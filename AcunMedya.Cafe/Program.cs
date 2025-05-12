@@ -13,14 +13,14 @@ builder.Services.AddFluentValidationAutoValidation().
                  AddFluentValidationClientsideAdapters().
                  AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-builder.Services.AddAuthentication("AdminScheme")
-    .AddCookie("AdminScheme", options =>
+builder.Services.AddAuthentication("AdminId")
+    .AddCookie("AdminId", options =>
     {
         options.LoginPath = "/Login/Index";
         options.LogoutPath = "/Login/Logout";
-        options.AccessDeniedPath = "/Login/AccessDenied";
+        options.AccessDeniedPath = "/Login/Index/";
     });
-
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -31,6 +31,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

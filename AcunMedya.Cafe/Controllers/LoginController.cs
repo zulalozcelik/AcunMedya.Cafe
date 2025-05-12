@@ -12,14 +12,7 @@ namespace AcunMedyaCafe.Controllers
     [AllowAnonymous]
     public class LoginController : Controller
     {
-        private readonly CafeContext _db;
-        private const string AuthScheme = "AdminScheme";
-
-        public LoginController(CafeContext db)
-        {
-            _db = db;
-        }
-
+        CafeContext db = new CafeContext();
         [HttpGet]
         public IActionResult Index()
         {
@@ -27,38 +20,33 @@ namespace AcunMedyaCafe.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Admin admin)
+        public async Task<IActionResult> Index(string userName, string password)
         {
-            if (!ModelState.IsValid)
-                return View(admin); // FluentValidation hatalarını göster
+            // Admin kontrolü
+            var admin = db.Admins.FirstOrDefault(x => x.Username == userName && x.Password == password);
 
-            var foundAdmin = _db.Admins
-                .FirstOrDefault(x => x.Username == admin.Username && x.Password == admin.Password);
-
-            if (foundAdmin == null)
+            if (admin != null)
             {
-                ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı.");
-                return View(admin);
+                // Kimlik bilgileri oluştur
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, admin.Username ?? "admin"),
+            new Claim("ProfilePhoto", admin.ProfilePhoto ?? "")
+        };
+
+                var identity = new ClaimsIdentity(claims, "Login");
+                var principal = new ClaimsPrincipal(identity);
+
+                // Giriş yap
+                await HttpContext.SignInAsync(principal);
+
+                return RedirectToAction("Index", "Home"); // Giriş sonrası yönlendirme
             }
-
-            var claims = new List<Claim>
+            else
             {
-                new Claim(ClaimTypes.Name, foundAdmin.Username),
-                new Claim(ClaimTypes.NameIdentifier, foundAdmin.AdminId.ToString())
-            };
-
-            var identity = new ClaimsIdentity(claims, AuthScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync(AuthScheme, principal);
-
-            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(AuthScheme);
-            return RedirectToAction("Index", "Login");
+                ViewBag.Error = "Geçersiz kullanıcı adı veya şifre";
+                return View();
+            }
         }
     }
 }

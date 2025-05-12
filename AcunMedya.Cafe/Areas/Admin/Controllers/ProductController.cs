@@ -1,5 +1,6 @@
 ﻿using AcunMedya.Cafe.Context;
 using AcunMedya.Cafe.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AcunMedya.Cafe.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ProductController : Controller
     {
