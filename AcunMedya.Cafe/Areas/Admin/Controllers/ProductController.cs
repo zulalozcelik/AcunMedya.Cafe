@@ -121,9 +121,9 @@ namespace AcunMedya.Cafe.Areas.Admin.Controllers
         public IActionResult DeleteProduct(int id)
         {
             var value = _context.Products.Find(id);
-            _context.Products.Remove(value);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            _context.Products.Remove(value); 
+            _context.SaveChanges(); 
+            return RedirectToAction("Index");  
         }
     }
 }

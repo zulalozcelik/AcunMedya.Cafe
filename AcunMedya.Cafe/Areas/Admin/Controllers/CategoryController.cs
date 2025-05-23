@@ -23,7 +23,7 @@ namespace AcunMedya.Cafe.Areas.Admin.Controllers
         }
         public IActionResult AddCategory()
         {
-            return View();
+            return View(); 
         }
 
         [HttpPost]
